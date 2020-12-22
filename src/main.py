@@ -35,13 +35,13 @@ class Server(BaseHTTPRequestHandler):
         ping_id = client.send_message(data['username'], '/ping').id
         time.sleep(0.5)
 
-        last_id = list(client.iter_messages(data['username'], limit=1))[0].id
+        messages_after_ping = list(client.iter_messages(data['username'], min_id=ping_id))
 
+        logging.info(data['username'])
         if debug:
-            logging.info("ping_id = %s last_id = %s difference = %s", str(ping_id), str(last_id),
-                         str(last_id - ping_id))
+            logging.info("ping_id = %s count of message after it = %s", str(ping_id), len(messages_after_ping))
 
-        if last_id > ping_id:
+        if len(messages_after_ping) > 0:
             self._do_response(200)
         else:
             self._do_response(400)
