@@ -6,10 +6,15 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from telethon.sync import TelegramClient
 
+
+def str2bool(v):
+    return v.lower() in ("yes", "true", "t", "1")
+
+
 api_id = int(os.getenv('API_ID'))
 api_hash = os.getenv('API_HASH')
 telephone = os.getenv('TELEPHONE')
-debug = bool(os.getenv('DEBUG'))
+debug = str2bool(os.getenv('DEBUG'))
 client = TelegramClient('alex', api_id, api_hash)
 
 
@@ -23,7 +28,7 @@ class Server(BaseHTTPRequestHandler):
     def do_POST(self):
         post_data = self.rfile.read(int(self.headers['Content-Length']))
         if debug: logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
-                     str(self.path), str(self.headers), post_data.decode('utf-8'))
+                               str(self.path), str(self.headers), post_data.decode('utf-8'))
 
         data = json.loads(post_data.decode('utf-8'))
         ping_id = client.send_message(data['username'], '/ping').id

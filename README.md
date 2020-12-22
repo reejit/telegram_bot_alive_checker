@@ -1,4 +1,4 @@
-### telegram bot alive checker
+## telegram bot alive checker
 
 this is simple web server that allow you to check that your bot is alive
 
@@ -12,3 +12,13 @@ environment variable:
 web server start on 8088
 
 the body is always `ok`
+
+### usage
+
+make POST request with body 
+
+```json
+{
+  "username": "username of bot"
+}
+```
