@@ -23,7 +23,7 @@ async def handle_post(request):
     logging.info(data['username'])
     chat = await client.get_input_entity(data['username'])
     async with client.conversation(chat) as conv:
-        await conv.send_message("/ping")
+        await conv.send_message("/start")
         answer = await conv.get_response()
         if answer.raw_text:
             return web.Response(status=200)
