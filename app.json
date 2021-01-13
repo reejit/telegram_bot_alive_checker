@@ -4,7 +4,7 @@
       "keywords": [
          "telegram",
          "heroku",
-         "bot-checker",
+         "bot-checker"
       ],   
    "repository": "https://github.com/centralhardware/telegram_bot_alive_checker",
    "env": {
