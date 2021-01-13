@@ -1,22 +1,12 @@
 {
-      "name": "saitamarobot",
-      "description": "an anime themed telegram group management bot.",
+      "name": "telegram_bot_alive_checker",
+      "description": "an online app built in python that uses telethon to check whether a bot is dead or alive.",
       "keywords": [
          "telegram",
-         "anime",
-         "group",
-         "manager",
-         "saitama"
+         "heroku",
+         "bot-checker",
       ],   
-   "repository": "https://github.com/animekaizoku/saitamarobot",
-   "addons": [
-      {
-         "options": {
-            "version": "12"
-         },
-         "plan": "heroku-postgresql"
-      }
-   ],
+   "repository": "https://github.com/centralhardware/telegram_bot_alive_checker",
    "env": {
       "API_ID": {
          "description": "get api_id from my.telegram.org",
