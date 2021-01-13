@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+from json.decoder import JSONDecodeError
 
 from aiohttp import web
 from telethon.sync import TelegramClient
@@ -19,16 +20,43 @@ client = TelegramClient('alex', api_id, api_hash)
 
 async def handle_post(request):
     body = await request.text()
-    data = json.loads(body)
-    logging.info(data['username'])
-    chat = await client.get_input_entity(data['username'])
+    if not body:
+        return web.Response(status=422, body='emtpy body')
+    try:
+        data = json.loads(body)
+        result = await handle(data['username'])
+    except JSONDecodeError:
+        return web.Response(status=422, body='invalid json')
+    except KeyError:
+        return web.Response(status=422, body='mission required param username')
+
+    if result:
+        return web.Response(status=200, body='ok')
+    else:
+        return web.Response(status=400, body='bot offline')
+
+
+async def handle_get(request):
+    try:
+        username = request.query['username']
+    except KeyError:
+        return web.Response(status=422, body='mission required param username')
+    if not username:
+        return web.Response(status=422, body='username param can not be empty')
+    result = await handle(username)
+    if result:
+        return web.Response(status=200, body='ok')
+    else:
+        return web.Response(status=400, body='bot offline')
+
+
+async def handle(username):
+    logging.info(username)
+    chat = await client.get_input_entity(username)
     async with client.conversation(chat) as conv:
-        await conv.send_message("/start")
+        await conv.send_message("/ping")
         answer = await conv.get_response()
-        if answer.raw_text:
-            return web.Response(status=200)
-        else:
-            return web.Response(status=400)
+        return bool(answer.raw_text)
 
 
 if __name__ == '__main__':
@@ -38,6 +66,7 @@ if __name__ == '__main__':
     client.connect()
     client.start(phone=telephone)
     app = web.Application()
-    app.add_routes([web.post('/', handle_post)])
-    web.run_app(app)
+    app.add_routes([web.post('/', handle_post),
+                    web.get('/', handle_get)])
+    web.run_app(app, port=8080)
     client.disconnect()
