@@ -54,7 +54,7 @@ async def handle(username):
     logging.info(username)
     chat = await client.get_input_entity(username)
     async with client.conversation(chat) as conv:
-        await conv.send_message("/ping")
+        await conv.send_message("/start")
         answer = await conv.get_response()
         return bool(answer.raw_text)
 
