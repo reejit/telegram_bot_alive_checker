@@ -1,5 +1,5 @@
 {
-      "name": "telegram_bot_alive_checker",
+      "name": "Telegram_bot_alive_checker",
       "description": "an online app built in python that uses telethon to check whether a bot is dead or alive.",
       "keywords": [
          "telegram",
