@@ -1,6 +1,43 @@
 {
-  "name": "Friendly Telegram",
-  "description": "An awesome Telegram userbot that's super easy to install and use - just click the deploy button below",
-  "logo": "https://friendly-telegram.gitlab.io/favicon.ico",
-  "keywords": ["telegram", "userbot"]
+      "name": "saitamarobot",
+      "description": "an anime themed telegram group management bot.",
+      "keywords": [
+         "telegram",
+         "anime",
+         "group",
+         "manager",
+         "saitama"
+      ],   
+   "repository": "https://github.com/animekaizoku/saitamarobot",
+   "addons": [
+      {
+         "options": {
+            "version": "12"
+         },
+         "plan": "heroku-postgresql"
+      }
+   ],
+   "env": {
+      "API_ID": {
+         "description": "get api_id from my.telegram.org",
+         "required": true,
+         "value": "123456"
+      },
+      "API_HASH": {
+         "description": "get api_hash from my.telegram.org",
+         "required": true,
+         "value": ""
+      },    
+      "TELEPHONE": {
+         "description": "the phone number associated with API_ID and API_HASH",
+         "required": true,
+         "value": "+1xxx-xxx-xxxx"
+      },      
+      "DEBUG": {
+         "description": "set this to true",
+         "required": true,
+         "value": "true"
+      }
+      
+   }
 }
