@@ -1,2 +1,2 @@
-Telethon~=1.18.2
-aiohttp~=3.7.3
+Telethon
+aiohttp
